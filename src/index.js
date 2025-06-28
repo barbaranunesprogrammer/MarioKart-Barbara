@@ -1,34 +1,34 @@
 const personagens = [
     {
-        NOME: "Mario",
+        NOME: "Mario🧑‍🚒 ",
         VELOCIDADE: 4,
         MANOBRABILIDADE: 3,
         PODER: 3,
         PONTOS: 0,
     },
     {
-        NOME: "Luigi",
+        NOME: "Luigi🪖 ",
         VELOCIDADE: 3,
         MANOBRABILIDADE: 4,
         PODER: 4,
         PONTOS: 0,
     },
     {
-        NOME: "Peach",
+        NOME: "Peach 👑 ",
         VELOCIDADE: 5,
         MANOBRABILIDADE: 4,
         PODER: 2,
         PONTOS: 0,
     },
     {
-        NOME: "Bowser",
+        NOME: "Bowser 👹 ",
         VELOCIDADE: 2,
         MANOBRABILIDADE: 2,
         PODER: 5,
         PONTOS: 0,
     },
     {
-        NOME: "Yoshi",
+        NOME: "Yoshi 🐲 ",
         VELOCIDADE: 4,
         MANOBRABILIDADE: 5,
         PODER: 2,
@@ -38,14 +38,14 @@ const personagens = [
 
 
 function escolherPersonagem() {
-    const personagem = [...personagens]
-    const escolher = Math.floor(Math.random() * personagem.length);
-    const player1 = personagem.splice(escolher, 1)[0]
+    const personagem = [...personagens] // essa linha fiz uma copia do array de cima  sem afetar o original por isso os ...
+    const escolher1 = Math.floor(Math.random() * personagem.length); // o Math.floor aredonda os numeros e o Math.random sorteia um numero aleatorio de 0 a 1  o length me fornece quantos personagens tem dentro do array
+    const player1 = personagem.splice(escolher1, 1)[0]// o  splice pega o personagem que o Math.randon sorteou e retira ele de dentro do array ou lista para no proximo sorteio não seja sorteado o mesmo personagem e o salva como player1
 
-    const index2 = Math.floor(Math.random() * personagem.length);
-    const player2 = personagem.splice(index2, 1)[0];
+    const escolher2 = Math.floor(Math.random() * personagem.length); //esse aqui faz um novo sorteio para o player2 mais sem opersonagem que ja foi escolhido para o player 1 .
+    const player2 = personagem.splice(escolher2, 1)[0];// mesma coisa do de cima tira o personagem de dentro da lista o [0] pega somente o personagem que foi removido
 
-    return [player1, player2]
+    return [player1, player2] //retorna os personagens escolhidos deixando eles dentro da const
 
 }
 
