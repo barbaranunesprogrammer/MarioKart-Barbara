@@ -1,18 +1,56 @@
-const player1 = {
-    NOME: "Mario",
-    VELOCIDADE: 4,
-    MANOBRABILIDADE: 3,
-    PODER: 3,
-    PONTOS: 0,
-};
+const personagens = [
+    {
+        NOME: "Mario",
+        VELOCIDADE: 4,
+        MANOBRABILIDADE: 3,
+        PODER: 3,
+        PONTOS: 0,
+    },
+    {
+        NOME: "Luigi",
+        VELOCIDADE: 3,
+        MANOBRABILIDADE: 4,
+        PODER: 4,
+        PONTOS: 0,
+    },
+    {
+        NOME: "Peach",
+        VELOCIDADE: 5,
+        MANOBRABILIDADE: 4,
+        PODER: 2,
+        PONTOS: 0,
+    },
+    {
+        NOME: "Bowser",
+        VELOCIDADE: 2,
+        MANOBRABILIDADE: 2,
+        PODER: 5,
+        PONTOS: 0,
+    },
+    {
+        NOME: "Yoshi",
+        VELOCIDADE: 4,
+        MANOBRABILIDADE: 5,
+        PODER: 2,
+        PONTOS: 0,
+    }
+];
 
-const player2 = {
-    NOME: "Luigi",
-    VELOCIDADE: 3,
-    MANOBRABILIDADE: 4,
-    PODER: 4,
-    PONTOS: 0,
-};
+
+function escolherPersonagem() {
+    const personagem = [...personagens]
+    const escolher = Math.floor(Math.random() * personagem.length);
+    const player1 = personagem.splice(escolher, 1)[0]
+
+    const index2 = Math.floor(Math.random() * personagem.length);
+    const player2 = personagem.splice(index2, 1)[0];
+
+    return [player1, player2]
+
+}
+
+
+
 
 async function rollDice() {
     return Math.floor(Math.random() * 6) + 1;  //floor vai aredondar 
@@ -84,13 +122,19 @@ async function playRaceEginer(character1, character2) {
             await logRollResult(character2.NOME, "poder", diceResult2, character2.PODER)
 
 
-            if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
-                console.log(`${character1.NOME} venceu o confronto! ${character2.NOME} perdeu um ponto 🐢`)
-                character2.PONTOS--;
+            if (powerResult1 > powerResult2) {
+                character1.PONTOS++;
+                if (character2.PONTOS > 0) {
+                    character2.PONTOS--;
+                }
+                console.log(`${character1.NOME} venceu o confronto! 🥇 +1 ponto ${character2.NOME} perdeu um ponto 🐢`)
             }
-            if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
-                console.log(`${character2.NOME} venceu o confronto! ${character1.NOME} perdeu um ponto 🐢`)
-                character1.PONTOS--;
+            if (powerResult2 > powerResult1) {
+                character2.PONTOS++;
+                if (character1.PONTOS > 0) {
+                    character1.PONTOS--;
+                }
+                console.log(`${character2.NOME} venceu o confronto! 🥇 +1 ponto ${character1.NOME} perdeu um ponto 🐢`)
             }
 
             console.log(powerResult2 === powerResult1 ? "Confronto empatado ! Nenhum ponto foi perdido" : "")
@@ -123,6 +167,7 @@ async function declareWinner(character1, character2) {
 
 
 (async function main() {// ela que vai chamar as outras funçoes
+    const [player1, player2] = escolherPersonagem();
     console.log(`🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando...\n`)
 
     await playRaceEginer(player1, player2)

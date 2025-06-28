@@ -1,7 +1,7 @@
 {
   "name": "mario",
   "version": "1.0.0",
-  "description": "",
+  "description": "Este projeto foi desenvolvido como parte do Bootcamp DIO.me, em parceria com o professor Felipe Aguiar. Durante o curso, foram abordados conceitos fundamentais de desenvolvimento web/back-end com foco prático, utilizando tecnologias modernas e boas práticas de programação.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
