@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 const personagens = [
     {
         NOME: "Mario🧑‍🚒 ",
@@ -76,17 +78,17 @@ async function getRandomBlock() {
 
 }
 async function logRollResult(characterName, block, diceResult, attribute) {
-    console.log(`${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`)
+    console.log(chalk.green.bgBlueBright.italic(`${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${diceResult + attribute} \n`))
 
 
 }
 
 async function playRaceEginer(character1, character2) {
     for (let round = 1; round <= 5; round++) {
-        console.log(`🏁 Rodada ${round}`);
+        console.log(chalk.red.bgRedBright.bold(`\n🏁 Rodada ${round}\n`));
 
         let block = await getRandomBlock()
-        console.log(`Bloco: ${block}`)
+        console.log(chalk.blue.bgGreenBright.bold(`Bloco: ${block}\n`))
 
         //rolar dados
         let diceResult1 = await rollDice();
@@ -117,7 +119,7 @@ async function playRaceEginer(character1, character2) {
             let powerResult1 = diceResult1 + character1.PODER;
             let powerResult2 = diceResult2 + character2.PODER;
 
-            console.log(`${character1.NOME} confrontou com ${character2.NOME}!🥊`);
+            console.log(chalk.yellow.bgGreen.bold(`${character1.NOME} confrontou com ${character2.NOME}!🥊\n`));
             await logRollResult(character1.NOME, "poder", diceResult1, character1.PODER)
             await logRollResult(character2.NOME, "poder", diceResult2, character2.PODER)
 
@@ -127,7 +129,7 @@ async function playRaceEginer(character1, character2) {
                 if (character2.PONTOS > 0) {
                     character2.PONTOS--;
                 }
-                console.log(`${character1.NOME} venceu o confronto! 🥇 +1 ponto ${character2.NOME} perdeu um ponto 🐢`)
+                console.log(chalk.black.bgYellow.bold(`${character1.NOME} venceu o confronto! 🥇 +1 ponto ${character2.NOME} perdeu um ponto 🐢`))
             }
             if (powerResult2 > powerResult1) {
                 character2.PONTOS++;
@@ -137,38 +139,40 @@ async function playRaceEginer(character1, character2) {
                 console.log(`${character2.NOME} venceu o confronto! 🥇 +1 ponto ${character1.NOME} perdeu um ponto 🐢`)
             }
 
-            console.log(powerResult2 === powerResult1 ? "Confronto empatado ! Nenhum ponto foi perdido" : "")
+            console.log(powerResult2 === powerResult1 ? chalk.yellow.bgRed.bold("Confronto empatado ! Nenhum ponto foi perdido" ): "")
 
         }
         if (TotalTestSkil1 > TotalTestSkil2) {
-            console.log(`${character1.NOME} marcou um ponto`);
+            console.log(chalk.blue.bgYellow(`${character1.NOME} marcou um ponto`));
             character1.PONTOS++;
 
         } else if (TotalTestSkil2 > TotalTestSkil1) {
-            console.log(`${character2.NOME} marcou um ponto `);
+            console.log(chalk.blue.bgYellow.bold(`${character2.NOME} marcou um ponto `));
             character2.PONTOS++;
         }
-        console.log("__________________________________");
+        console.log(chalk.black.bgYellow.bold("\n-------------------------------------------\n"));
     }
 }
 async function declareWinner(character1, character2) {
-    console.log("Resultado Final : ")
-    console.log(`${character1.NOME} : ${character1.PONTOS} ponto(s)`)
-    console.log(`${character2.NOME} : ${character2.PONTOS} ponto(s)`)
+    console.log(chalk.yellow.bgRed.italic("Resultado Final : "))
+
+    console.log(chalk.green.bgYellowBright.italic(`${character1.NOME} : ${character1.PONTOS} ponto(s)`))
+    
+    console.log(chalk.yellow.bgRed.italic(`${character2.NOME} : ${character2.PONTOS} ponto(s)`))
 
     if (character1.PONTOS > character2.PONTOS) {
-        console.log(`\n ${character1.NOME} venceu a corrida , Parabéns 🏆`)
+        console.log(chalk.yellow.bgGreen.bold(`\n ${character1.NOME} venceu a corrida , Parabéns 🏆`))
     } else if (character2.PONTOS > character1.PONTOS) {
         console.log(`\n ${character2.NOME} venceu a corrida , Parabéns 🏆`)
     } else {
-        console.log("A corrida terminou em empate")
+        console.log(chalk.black.bgBlue,bold("A corrida terminou em empate"))
     }
 }
 
 
 (async function main() {// ela que vai chamar as outras funçoes
     const [player1, player2] = escolherPersonagem();
-    console.log(`🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando...\n`)
+    console.log(chalk.green.bgYellow.bold(`🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando...\n`))
 
     await playRaceEginer(player1, player2)
     await declareWinner(player1, player2)
